@@ -1,0 +1,104 @@
+/* Font Imports - Optimized */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&family=Cairo:wght@200;400&family=Open+Sans:ital,wght@1,600&display=swap');
+
+/* Base Styles */
+:root {
+  --drop-color: cornflowerblue;
+  --drop-size: 10px;
+  --animation-duration: 5s;
+  --container-width: 350px;
+  --image-height: 150px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #0d0808;
+  overflow: hidden;
+  display: flex;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Animation Container */
+.container {
+  width: var(--container-width);
+  height: 100vh;
+  position: relative;
+  animation: 
+    move var(--animation-duration) linear infinite alternate;
+  will-change: transform; /* Performance optimization */
+}
+
+.container img {
+  width: 100%;
+  height: var(--image-height);
+  display: block;
+  object-fit: cover; /* Better image handling */
+}
+
+/* Raindrop Elements */
+.container i {
+  display: block;
+  width: var(--drop-size);
+  height: var(--drop-size);
+  background-color: var(--drop-color);
+  position: absolute;
+  top: var(--image-height);
+  border-radius: 0px 50% 50% 50%;
+  transform: rotate(45deg);
+  animation: 
+    rain var(--animation-duration) linear infinite;
+  filter: 
+    drop-shadow(0 0 2px rgba(100, 149, 237, 0.7));
+  opacity: 0.8;
+  will-change: transform; /* Performance optimization */
+}
+
+/* Multiple raindrops with different delays */
+.container i:nth-child(1) { left: 10%; animation-delay: 0s; }
+.container i:nth-child(2) { left: 30%; animation-delay: 0.5s; }
+.container i:nth-child(3) { left: 50%; animation-delay: 1s; }
+.container i:nth-child(4) { left: 70%; animation-delay: 1.5s; }
+.container i:nth-child(5) { left: 90%; animation-delay: 2s; }
+
+/* Animations */
+@keyframes rain {
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(calc(100vh - var(--image-height))) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(100vw - var(--container-width)));
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  :root {
+    --container-width: 250px;
+    --image-height: 120px;
+    --drop-size: 8px;
+  }
+}
